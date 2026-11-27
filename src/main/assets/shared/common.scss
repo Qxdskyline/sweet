@@ -1,0 +1,104 @@
+:root {
+  color-scheme: light;
+  --cream: #fcf5ed;
+  --ink: #35252b;
+  --muted: #775967;
+  --plum: #643848;
+  --pale: #f6e5e7;
+  --paper: #fffaf5;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body {
+  margin: 0;
+  background: var(--cream);
+  color: var(--ink);
+  font: 16px/1.55 system-ui, sans-serif;
+}
+header, main { width: calc(100% - 32px); max-width: 520px; margin: auto; }
+header { padding: 14px 0 10px; }
+nav { display: flex; gap: 6px; flex-wrap: wrap; }
+nav a { flex: 1 0 auto; text-align: center; }
+a, button { -webkit-tap-highlight-color: transparent; }
+nav a, .button, button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 8px 13px;
+  border: 0;
+  border-radius: 22px;
+  background: var(--pale);
+  color: var(--plum);
+  font: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+nav a[aria-current], .primary { background: var(--plum); color: white; }
+button:disabled { opacity: .65; cursor: default; }
+main { padding-bottom: 24px; }
+h1 { font-size: 1.55rem; margin: 10px 0 16px; }
+h2 { font-size: 1.1rem; margin: 0 0 10px; }
+.card {
+  padding: 18px;
+  border-radius: 24px;
+  background: var(--paper);
+  margin: 16px 0;
+  overflow-wrap: anywhere;
+}
+.error { color: #9c2543; }
+.error:empty { display: none; }
+
+.sweet-theme {
+  --ink: #552d40;
+  --muted: #80546a;
+  --plum: #873b59;
+  --pale: #fce7ef;
+  --paper: #fffafb;
+  --rose-accent: #d4738f;
+  --rose-gradient: linear-gradient(135deg, #ffb3c6, #ff9db4);
+  min-height: 100vh;
+  background: linear-gradient(135deg, #fff5f7, #fffbfc 50%, #fff9fa);
+
+  header, main { position: relative; }
+  nav a[aria-current] {
+    background: var(--rose-gradient);
+    color: #62273e;
+    box-shadow: 0 4px 12px #ff9db440;
+  }
+}
+
+#particles-canvas,
+#particles-foreground {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: .8;
+}
+
+#particles-foreground {
+  z-index: 100;
+  opacity: .5;
+}
+
+.sweet-theme .card {
+  position: relative;
+  padding: 20px;
+  border: 1px solid #f7dce7;
+  background: var(--paper);
+  box-shadow: 0 4px 24px #ffb6c119, 0 0 0 1px #ffb6c119;
+  transition: transform .3s, box-shadow .3s;
+
+  h2 { color: var(--plum); }
+  h2::after {
+    display: block;
+    width: 60px;
+    height: 3px;
+    margin-top: 6px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, #ffb3c6, #ffc9d8, transparent);
+    content: "";
+  }
+}

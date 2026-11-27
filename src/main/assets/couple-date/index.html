@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; object-src 'none'; base-uri 'none'">
+  <title>我们的日子 · Sweet</title>
+  <link rel="stylesheet" href="../shared/common.css">
+  <link rel="stylesheet" href="couple-date.css">
+  <script type="module" src="couple-date.js"></script>
+  <script type="module" src="../shared/particles-effect.js"></script>
+</head>
+<body class="sweet-theme couple-page">
+<canvas id="particles-canvas" aria-hidden="true"></canvas>
+<header><nav aria-label="Sweet">
+  <a data-tab href="../couple-date/index.html" aria-current="page">我们的日子</a>
+  <a data-tab href="../food-wheel/index.html">今天吃什么</a>
+  <a href="../settings/index.html?from=couple-date">设置</a>
+</nav></header>
+<main>
+  <p id="error" class="error" role="alert"></p>
+  <h1 id="names">
+    <span class="heart-icon" aria-hidden="true">💕</span>
+    <span id="names-text">我们的日子</span>
+    <span class="heart-icon" aria-hidden="true">💕</span>
+  </h1>
+  <section class="hero" hidden>
+    <div class="hero-bg-decoration" aria-hidden="true"></div>
+    <span class="hero-heart" aria-hidden="true">💝</span>
+    <div id="count-label"></div>
+    <strong id="count"></strong>
+    <div class="days-label">天</div>
+    <p id="start-date"></p>
+  </section>
+  <section class="card" id="quote-card" hidden>
+    <div class="quote-decoration" aria-hidden="true">✨</div>
+    <h2 id="quote-label">想对你说</h2>
+    <p id="quote" aria-live="polite"></p>
+    <button id="next-quote" type="button">
+      <span>换一句</span>
+      <span class="button-icon" aria-hidden="true">💫</span>
+    </button>
+  </section>
+  <section class="card">
+    <h2>
+      <span class="section-icon" aria-hidden="true">🎀</span>
+      纪念日
+    </h2>
+    <ul id="anniversaries"></ul>
+  </section>
+</main>
+</body>
+</html>

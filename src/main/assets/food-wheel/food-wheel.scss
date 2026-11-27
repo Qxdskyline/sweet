@@ -1,0 +1,60 @@
+.wheel {
+  width: 100%;
+  max-width: 350px;
+  margin: 13px auto 21px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 5px #fff7fa, 0 0 0 6px #f2c8d8, 0 12px 28px #d4738f45;
+  position: relative;
+  canvas { display: block; width: 100%; border-radius: 50%; }
+}
+.pointer {
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 11px solid transparent;
+  border-top: 24px solid var(--plum);
+  transform-origin: 50% 7px;
+  pointer-events: none;
+  &.spinning { animation: pointer-kick 380ms ease-out; }
+}
+#spin {
+  display: flex;
+  min-width: 145px;
+  margin: auto;
+  touch-action: manipulation;
+  gap: 8px;
+  background: var(--rose-gradient);
+  color: #63263e;
+  box-shadow: 0 4px 0 #df8ca8, 0 8px 18px #d4738f38;
+  transition: transform 120ms ease, box-shadow 120ms ease;
+  &:active:enabled {
+    transform: translateY(3px) scale(.97);
+    box-shadow: 0 1px 0 #df8ca8;
+    transition-duration: 0ms;
+  }
+}
+@keyframes pointer-kick {
+  0%, 100% { transform: translateX(-50%); }
+  35% { transform: translateX(-50%) rotate(19deg); }
+  70% { transform: translateX(-50%) rotate(-6deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  #spin { transition: none; }
+}
+#result { text-align: center; font-size: 1.25rem; font-weight: 700; overflow-wrap: anywhere; }
+
+.wheel-title { color: var(--plum); text-align: center; }
+.sweet-theme .wheel-card {
+  padding: 20px 18px 23px;
+  background: radial-gradient(ellipse at 50% 25%, #ffe3ef, #fffafb 78%);
+}
+.spin-sparkle { color: var(--plum); }
+#result {
+  margin: 17px 0 0;
+  padding: 8px 12px;
+  border-radius: 13px;
+  background: #fff0f6;
+  color: var(--plum);
+}
+#result:empty { display: none; }
