@@ -1,6 +1,8 @@
 /build/
+/node_modules/
 /.signing/
 *.apk
 *.idsig
 .idea/
 .vscode/
+build-script

@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; object-src 'none'; base-uri 'none'">
+  <title>今天吃什么 · Sweet</title>
+  <link rel="stylesheet" href="../shared/common.css">
+  <link rel="stylesheet" href="food-wheel.css">
+  <script type="module" src="food-wheel.js"></script>
+  <script type="module" src="../shared/particles-effect.js"></script>
+</head>
+<body class="sweet-theme food-wheel-page">
+<canvas id="particles-canvas" aria-hidden="true"></canvas>
+<header><nav aria-label="Sweet">
+  <a data-tab href="../couple-date/index.html">我们的日子</a>
+  <a data-tab href="../food-wheel/index.html" aria-current="page">今天吃什么</a>
+  <a href="../settings/index.html?from=food-wheel">设置</a>
+</nav></header>
+<main>
+  <p id="error" class="error" role="alert"></p>
+  <h1 class="wheel-title"><span aria-hidden="true">🍽️</span> 今天吃什么</h1>
+  <div class="card wheel-card">
+    <div class="wheel" aria-hidden="true">
+      <canvas id="wheel-canvas"></canvas>
+      <span class="pointer"></span>
+    </div>
+    <button id="spin" class="primary" type="button" disabled><span id="spin-label">开始转</span><span class="spin-sparkle" aria-hidden="true">✦</span></button>
+    <p id="result" role="status" aria-live="polite"></p>
+  </div>
+</main>
+</body>
+</html>

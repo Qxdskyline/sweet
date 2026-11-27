@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; object-src 'none'; base-uri 'none'">
+  <title>设置 · Sweet</title>
+  <link rel="stylesheet" href="../shared/common.css">
+  <link rel="stylesheet" href="settings.css">
+  <script type="module" src="settings.js"></script>
+  <script type="module" src="../shared/particles-effect.js"></script>
+</head>
+<body class="sweet-theme settings-page">
+<canvas id="particles-canvas" aria-hidden="true"></canvas>
+<header><a class="button" id="return" href="../couple-date/index.html"><span aria-hidden="true">‹</span> 返回</a></header>
+<main>
+  <p id="error" class="error" role="alert"></p>
+  <h1><span aria-hidden="true">🎀</span> 设置</h1>
+  <p id="save-status" role="status"></p>
+  <a class="button" id="particle-settings" href="particles.html">✦ 星光特效设置</a>
+  <form hidden>
+    <section class="card">
+      <h2><span aria-hidden="true">♡</span> 我们</h2>
+      <label>我的名字<input name="myName"></label>
+      <label>对方的名字<input name="herName"></label>
+      <label>昵称<input name="nickname"></label>
+      <label>在一起的日期<input name="startDate" type="date" required></label>
+    </section>
+    <section class="card">
+      <h2><span aria-hidden="true">◇</span> 纪念日</h2>
+      <div class="entries" id="anniversaries"></div>
+      <button type="button" data-add="anniversaries">添加纪念日</button>
+    </section>
+    <section class="card">
+      <h2><span aria-hidden="true">♡</span> 情话</h2>
+      <div class="entries" id="sweetLines"></div>
+      <button type="button" data-add="sweetLines">添加情话</button>
+    </section>
+    <section class="card">
+      <h2><span aria-hidden="true">◇</span> 转盘菜单</h2>
+      <div class="entries" id="foodOptions"></div>
+      <button type="button" data-add="foodOptions">添加菜品</button>
+    </section>
+  </form>
+</main>
+</body>
+</html>

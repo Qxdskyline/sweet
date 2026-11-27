@@ -1,0 +1,151 @@
+#names {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 17px 0 20px;
+  color: var(--plum);
+  text-align: center;
+}
+#names-text { min-width: 0; overflow-wrap: anywhere; }
+.heart-icon { flex-shrink: 0; font-size: .8em; animation: heartbeat 1.5s ease-in-out infinite; }
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: 32px 18px 28px;
+  text-align: center;
+  border-radius: 32px;
+  background: linear-gradient(165deg, #ffc9d8, #ffb3c6 50%, #ff9db4);
+  color: #63263e;
+  box-shadow: 0 12px 40px #ff9db44d, 0 4px 12px #ff9db433, inset 0 1px 0 #ffffff80;
+
+  strong {
+    display: block;
+    font: 700 clamp(3.4rem, 14vw, 6rem)/1.08 Georgia, serif;
+    font-variant-numeric: lining-nums tabular-nums;
+    text-shadow: 0 3px 14px #fff8;
+    animation: number-glow 2s ease-in-out infinite;
+  }
+
+  p { margin: 14px 0 0; font-size: .9rem; }
+}
+
+.hero-bg-decoration {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: radial-gradient(ellipse at 88% 3%, #ffffff26, transparent 70%);
+}
+.hero-heart {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  font-size: 1.35rem;
+  opacity: .75;
+  animation: float-heart 3s ease-in-out infinite;
+}
+.days-label { margin-top: 3px; }
+
+#quote-label { padding-right: 37px; }
+.quote-decoration {
+  position: absolute;
+  top: 14px;
+  right: 19px;
+  animation: sparkle 2s ease-in-out infinite;
+}
+
+#quote {
+  position: relative;
+  margin: 16px 0;
+  padding-left: 24px;
+  font-size: 1.12rem;
+  white-space: pre-wrap;
+
+  &::before {
+    position: absolute;
+    top: -10px;
+    left: 0;
+    color: #d4738f80;
+    font: italic 3rem/1 Georgia, serif;
+    content: open-quote;
+  }
+}
+
+#next-quote {
+  gap: 8px;
+  border-radius: 28px;
+  background: var(--rose-gradient);
+  color: #63263e;
+  box-shadow: 0 4px 16px #ff9db44d;
+  transition: transform .3s, box-shadow .3s;
+
+  &:active { transform: translateY(1px) scale(.97); }
+  .button-icon { animation: rotate-icon 2s linear infinite; }
+}
+
+#anniversaries {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  color: var(--muted);
+
+  li {
+    position: relative;
+    padding: 9px 12px;
+    border-left: 2px solid #f4c3d4;
+    border-radius: 6px 12px 12px 6px;
+    background: #fff1f6;
+  }
+  li + li { margin-top: 8px; }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .couple-page .card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px #ffb6c133, 0 0 0 1px #ffb6c126; }
+  #next-quote:hover { box-shadow: 0 8px 24px #ff9db466; }
+  #next-quote:hover:not(:active) { transform: translateY(-3px); }
+  #anniversaries li:not(.empty) {
+    transition: padding-left .3s, background .3s, border-color .3s;
+
+    &::before {
+      position: absolute;
+      top: 50%;
+      left: 12px;
+      transform: translateY(-50%) scale(0);
+      transition: transform .3s cubic-bezier(.68, -.55, .265, 1.55);
+      content: "♥";
+      color: #b85577;
+    }
+
+    &:hover {
+      padding-left: 40px;
+      border-left-color: #ffb3c6;
+      background: #fff3f8cc;
+    }
+    &:hover::before { transform: translateY(-50%) scale(1); }
+  }
+}
+
+@keyframes heartbeat {
+  0%, 20%, 40%, 100% { transform: scale(1); }
+  10%, 30% { transform: scale(1.1); }
+}
+@keyframes float-heart {
+  0%, 100% { transform: translateY(0) rotate(-8deg); }
+  50% { transform: translateY(-6px) rotate(6deg); }
+}
+@keyframes number-glow {
+  0%, 100% { text-shadow: 0 2px 10px #fff8, 0 4px 20px #ff9db44d; }
+  50% { text-shadow: 0 2px 15px #fffc, 0 4px 30px #ff9db480; }
+}
+@keyframes sparkle {
+  0%, 100% { opacity: .2; transform: rotate(0); }
+  50% { opacity: .4; transform: rotate(10deg); }
+}
+@keyframes rotate-icon {
+  to { transform: rotate(360deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .couple-page *, .couple-page *::before { animation: none !important; transition: none !important; }
+}

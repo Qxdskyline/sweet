@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; object-src 'none'; base-uri 'none'">
+  <title>星光特效 · Sweet</title>
+  <link rel="stylesheet" href="../shared/common.css">
+  <link rel="stylesheet" href="settings.css">
+  <script type="module" src="particles-settings.js"></script>
+</head>
+<body class="sweet-theme settings-page">
+<canvas id="particles-canvas" aria-hidden="true"></canvas>
+<header><a class="button" id="return" href="index.html">‹ 返回设置</a></header>
+<main>
+  <h1>星光特效</h1>
+  <p id="error" class="error" role="alert"></p>
+  <form class="card particle-controls" hidden>
+    <label class="particle-toggle">开启星光<input name="enabled" type="checkbox"></label>
+    <fieldset>
+      <h2>数量与亮度</h2>
+      <label>背景粒子 <output for="count"></output><input id="count" name="count" type="range"></label>
+      <label>前景粒子 <output for="foreground"></output><input id="foreground" name="foreground" type="range"></label>
+      <label>亮度 <output for="brightness"></output><input id="brightness" name="brightness" type="range"></label>
+      <label>粒子大小 <output for="size"></output><input id="size" name="size" type="range"></label>
+      <h2>运动</h2>
+      <label>向上飘动速度 <output for="speed"></output><input id="speed" name="speed" type="range"></label>
+      <label>横向漂移 <output for="drift"></output><input id="drift" name="drift" type="range"></label>
+      <label>闪烁速度 <output for="twinkle"></output><input id="twinkle" name="twinkle" type="range"></label>
+      <h2>光效</h2>
+      <label>光晕强度 <output for="glow"></output><input id="glow" name="glow" type="range"></label>
+      <label>拖尾长度 <output for="trail"></output><input id="trail" name="trail" type="range"></label>
+    </fieldset>
+    <button type="button" id="reset-particles">恢复默认</button>
+    <p id="save-status" role="status"></p>
+  </form>
+</main>
+</body>
+</html>

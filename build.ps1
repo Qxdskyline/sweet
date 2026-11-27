@@ -3,7 +3,7 @@ param(
     [Parameter(Mandatory = $true)][string]$BuildTools,
     [Parameter(Mandatory = $true)][string]$Platform,
     [string]$BuildDirectory = "$PSScriptRoot/build",
-    [string]$Apk = "$PSScriptRoot/build/Sweet-0.1.0.apk"
+    [string]$Apk = "$PSScriptRoot/build/Sweet-0.2.2.apk"
 )
 $ErrorActionPreference = 'Stop'
 $env:JAVA_HOME = (Resolve-Path -LiteralPath $Jdk).Path
@@ -19,17 +19,28 @@ function Run([string]$Program, [string[]]$Arguments) {
 $java = Join-Path $env:JAVA_HOME 'bin'
 $android = Join-Path (Resolve-Path -LiteralPath $Platform).Path 'android.jar'
 $tools = (Resolve-Path -LiteralPath $BuildTools).Path
+$main = "$PSScriptRoot/src/main"
+$javaSource = "$main/java"
 $apkPath = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($Apk)
 $buildPath = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($BuildDirectory)
 New-Item -ItemType Directory -Force -Path $buildPath, (Split-Path -Parent $apkPath), "$PSScriptRoot/.signing" | Out-Null
 $stage = (New-Item -ItemType Directory -Path (Join-Path $buildPath ([Guid]::NewGuid().ToString('N')))).FullName
 New-Item -ItemType Directory -Path "$stage/classes", "$stage/dex" | Out-Null
 
-Run "$tools/aapt2.exe" @('compile', '--dir', "$PSScriptRoot/res", '-o', "$stage/resources.zip")
+$sass = "$PSScriptRoot/node_modules/.bin/sass.cmd"
+if (!(Test-Path -LiteralPath $sass)) {
+    throw "Install the SCSS compiler first: npm ci (from $PSScriptRoot)"
+}
+Copy-Item -LiteralPath "$main/assets" -Destination "$stage/assets" -Recurse
+Run $sass @('--no-source-map', "${stage}/assets:${stage}/assets")
+Get-ChildItem -LiteralPath "$stage/assets" -Filter '*.scss' -File -Recurse |
+    Remove-Item
+
+Run "$tools/aapt2.exe" @('compile', '--dir', "$main/res", '-o', "$stage/resources.zip")
 Run "$tools/aapt2.exe" @('link', '-o', "$stage/unsigned.apk", '--manifest',
-    "$PSScriptRoot/AndroidManifest.xml", '-I', $android, '-A', "$PSScriptRoot/assets",
+    "$main/AndroidManifest.xml", '-I', $android,
     "$stage/resources.zip")
-$sources = @(Get-ChildItem -LiteralPath "$PSScriptRoot/src" -Filter '*.java' -File -Recurse |
+$sources = @(Get-ChildItem -LiteralPath $javaSource -Filter '*.java' -File -Recurse |
     ForEach-Object { $_.FullName })
 $compilerArgs = @('-J-Duser.language=en', '-J-Duser.country=US', '-encoding', 'UTF-8',
     '--release', '8', '-classpath', $android, '-d', "$stage/classes") + $sources
@@ -49,9 +60,9 @@ if ($compilerExit -ne 0) {
         throw "javac exited with code $compilerExit"
     }
     foreach ($source in $sources) {
-        $className = [IO.Path]::GetFileNameWithoutExtension($source)
-        if (!(Test-Path -LiteralPath "$stage/classes/io/github/qxdskyline/sweet/$className.class")) {
-            throw "javac did not produce $className.class"
+        $classPath = [IO.Path]::ChangeExtension($source.Substring($javaSource.Length + 1), '.class')
+        if (!(Test-Path -LiteralPath "$stage/classes/$classPath")) {
+            throw "javac did not produce $classPath"
         }
     }
     Write-Output 'Compiled successfully. The SDK archive could not be closed by javac.'
@@ -59,7 +70,9 @@ if ($compilerExit -ne 0) {
 Run "$java/jar.exe" @('cf', "$stage/classes.jar", '-C', "$stage/classes", '.')
 Run "$tools/d8.bat" @('--min-api', '26', '--lib', $android, '--output', "$stage/dex",
     "$stage/classes.jar")
-Run "$java/jar.exe" @('uf', "$stage/unsigned.apk", '-C', "$stage/dex", 'classes.dex')
+# jar writes forward slashes for nested assets even on Windows.
+Run "$java/jar.exe" @('uf', "$stage/unsigned.apk", '-C', "$stage/dex", 'classes.dex',
+    '-C', $stage, 'assets')
 Run "$tools/zipalign.exe" @('-f', '-P', '16', '4', "$stage/unsigned.apk", "$stage/aligned.apk")
 
 $key = "$PSScriptRoot/.signing/debug.p12"

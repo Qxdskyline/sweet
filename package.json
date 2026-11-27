@@ -1,0 +1,11 @@
+{
+  "name": "sweet-android",
+  "private": true,
+  "scripts": {
+    "styles": "sass --no-source-map src/main/assets:src/main/assets",
+    "preview": "node preview.mjs"
+  },
+  "devDependencies": {
+    "sass": "1.108.1"
+  }
+}

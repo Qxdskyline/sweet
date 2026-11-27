@@ -1,9 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="io.github.qxdskyline.sweet" android:versionCode="1" android:versionName="0.1.0">
+    package="io.github.qxdskyline.sweet" android:versionCode="4" android:versionName="0.2.2">
     <uses-sdk android:minSdkVersion="26" android:targetSdkVersion="36" />
     <application android:label="Sweet" android:icon="@drawable/ic_sweet"
         android:theme="@style/AppTheme" android:allowBackup="false"
-        android:supportsRtl="true">
+        android:supportsRtl="true" android:enableOnBackInvokedCallback="true">
         <activity android:name=".MainActivity" android:exported="true"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
